@@ -81,7 +81,6 @@ export async function GET(
         total: true,
         createdAt: true,
         paidAt: true,
-        notes: true,
       },
     })
 

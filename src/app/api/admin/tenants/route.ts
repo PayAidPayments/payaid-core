@@ -75,18 +75,6 @@ export async function GET(request: NextRequest) {
             },
           },
         },
-        select: {
-          id: true,
-          name: true,
-          email: true,
-          subdomain: true,
-          status: true,
-          subscriptionTier: true,
-          licensedModules: true,
-          createdAt: true,
-          subscription: true,
-          _count: true,
-        },
       }),
       prisma.tenant.count({ where }),
     ])

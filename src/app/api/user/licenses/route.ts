@@ -19,13 +19,6 @@ export async function GET(request: NextRequest) {
     const tenant = await prisma.tenant.findUnique({
       where: { id: tenantId },
       include: {
-        subscription: true,
-      },
-      select: {
-        id: true,
-        name: true,
-        licensedModules: true,
-        subscriptionTier: true,
         subscription: {
           select: {
             id: true,

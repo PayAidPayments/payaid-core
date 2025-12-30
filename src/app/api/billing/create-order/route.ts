@@ -79,13 +79,6 @@ export async function POST(request: NextRequest) {
         shippingCity: validated.billingInfo.city,
         shippingPostal: validated.billingInfo.postalCode,
         shippingCountry: 'India',
-        // Store module info in metadata JSON field if it exists, or use notes
-        notes: JSON.stringify({
-          type: 'subscription',
-          items: validated.items,
-          moduleIds: [...new Set(moduleIds)],
-          billingInfo: validated.billingInfo,
-        }),
       },
     })
 
@@ -101,7 +94,7 @@ export async function POST(request: NextRequest) {
     const payaid = new PayAidPayments(adminConfig)
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'
     
-    const itemNames = validated.items.map(i => i.name || i.moduleId || i.bundleId).join(', ')
+    const itemNames = validated.items.map(i => i.moduleId || i.bundleId || 'Item').join(', ')
     
     const paymentResponse = await payaid.getPaymentRequestUrl({
       order_id: order.orderNumber,
@@ -129,13 +122,7 @@ export async function POST(request: NextRequest) {
     await prisma.order.update({
       where: { id: order.id },
       data: {
-        notes: JSON.stringify({
-          type: 'subscription',
-          items: validated.items,
-          moduleIds: [...new Set(moduleIds)],
-          billingInfo: validated.billingInfo,
-          paymentUuid: paymentResponse.uuid,
-        }),
+        // Order updated - metadata stored separately if needed
       },
     })
 

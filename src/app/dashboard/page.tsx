@@ -101,7 +101,7 @@ export default function DashboardPage() {
     enabled: !!token,
     retry: false, // Don't retry license errors
     staleTime: 2 * 60 * 1000, // 2 minutes - dashboard stats don't change frequently
-    cacheTime: 5 * 60 * 1000, // 5 minutes
+    gcTime: 5 * 60 * 1000, // 5 minutes (formerly cacheTime)
   })
 
   useEffect(() => {

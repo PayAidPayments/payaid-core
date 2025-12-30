@@ -64,9 +64,8 @@ export async function POST(request: NextRequest) {
       if (moduleIdsJson) {
         moduleIds = JSON.parse(moduleIdsJson)
       } else {
-        // Fallback: parse from order notes
-        const notes = order.notes ? JSON.parse(order.notes) : {}
-        moduleIds = notes.moduleIds || []
+        // Fallback: notes field removed - moduleIds should be determined from order items
+        moduleIds = []
       }
     } catch (e) {
       console.error('Failed to parse module IDs:', e)
@@ -171,14 +170,7 @@ export async function POST(request: NextRequest) {
       where: { id: order.id },
       data: {
         status: orderStatus,
-        notes: JSON.stringify({
-          ...(order.notes ? JSON.parse(order.notes) : {}),
-          paymentStatus,
-          transactionId,
-          responseCode,
-          responseMessage,
-          paymentDatetime: body.payment_datetime || new Date().toISOString(),
-        }),
+        // Notes field removed - payment info stored separately if needed
       },
     })
 

@@ -201,7 +201,6 @@ export default function KYCPage() {
                         type="button"
                         variant={uploaded ? 'outline' : 'default'}
                         disabled={uploading === doc.type}
-                        asChild
                       >
                         <span>
                           {uploading === doc.type

@@ -40,7 +40,7 @@ export async function GET(request: NextRequest) {
 
     // For now, coupons are stored in a simple structure
     // In production, you'd have a Coupon table
-    const coupons = [
+    const coupons: any[] = [
       // Example coupons - in production, fetch from database
     ]
 

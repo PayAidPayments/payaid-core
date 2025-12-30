@@ -53,16 +53,6 @@ export async function GET(request: NextRequest) {
             },
           },
         },
-        select: {
-          id: true,
-          email: true,
-          name: true,
-          role: true,
-          avatar: true,
-          createdAt: true,
-          lastLoginAt: true,
-          tenant: true,
-        },
       }),
       new Promise((_, reject) => 
         setTimeout(() => reject(new Error('Database query timeout')), 2000)
